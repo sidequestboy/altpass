@@ -1,12 +1,13 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 """Generate passwords that are fun to type"""
+from __future__ import print_function
 from os import urandom
 
 def choice(keys):
     """Uniformly choose element from list keys, note len(keys) must be
     less than 256"""
     while(True):
-        i = int.from_bytes(urandom(1), byteorder='big')
+        i = ord(urandom(1))
         if i < 256 - (256 % len(keys)):
             return keys[i % len(keys)]
 
