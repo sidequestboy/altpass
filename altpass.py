@@ -30,38 +30,48 @@ right_shift = [["&", "*", "(", ")", "_", "+", ],
                ["H", "J", "K", "L", ":", "\"", ],
                ["B", "N", "M", "<", ">", "?", ], ]
 
-# Alternating hands is fun
 
-# choose randomly which hand to lead
-hand = choice(["left", "right"])
+def generate_password(length):
+    """Generate a password"""
 
-# choose randomly whether to start with shift
-# note that the state of `shift` is a Markov chain with stationary
-# distribution (0.5, 0.5), so draw from the stationary distribution so
-# that the probability of shift being True or False at any given point
-# in the algorithm is 0.5
-shift = choice([True, False])
+    # Alternating hands is fun
+    password = ""
 
-for i in range(14):
-    if hand == "left":
-        # Choose whether shift key
-        if shift:
-            print(choice([k for l in right_shift for k in l]), end="")
-            shift = False
-            hand = "left"
-        else:
-            print(choice([k for l in left_keys for k in l]), end="")
-            shift = choice([True, False])
-            hand = "right"
-    elif hand == "right":
-        # Choose whether shift key
-        if shift:
-            print(choice([k for l in left_shift for k in l]), end="")
-            shift = False
-            hand = "right"
-        else:
-            print(choice([k for l in right_keys for k in l]), end="")
-            shift = choice([True, False])
-            hand = "left"
+    # choose randomly which hand to lead
+    hand = choice(["left", "right"])
 
-print("")
+    # choose randomly whether to start with shift
+    # note that the state of `shift` is a Markov chain with stationary
+    # distribution (0.5, 0.5), so draw from the stationary distribution so
+    # that the probability of shift being True or False at any given point
+    # in the algorithm is 0.5
+    shift = choice([True, False])
+
+    for i in range(length):
+        if hand == "left":
+            # Choose whether shift key
+            if shift:
+                password += choice([k for l in right_shift for k in l])
+                shift = False
+                hand = "left"
+            else:
+                password += choice([k for l in left_keys for k in l])
+                shift = choice([True, False])
+                hand = "right"
+        elif hand == "right":
+            # Choose whether shift key
+            if shift:
+                password += choice([k for l in left_shift for k in l])
+                shift = False
+                hand = "right"
+            else:
+                password += choice([k for l in right_keys for k in l])
+                shift = choice([True, False])
+                hand = "left"
+
+    return password
+
+
+if __name__ == '__main__':
+    password = generate_password(14)
+    print(password)
