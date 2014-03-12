@@ -3,7 +3,7 @@ Generate a password:
 
 ```
 $ python altpass.py
-~\1Vow}cF-H`Q^C
+FhvWu+zT[+2!-:
 ```
 
 The principle here is that the passphrase can be typed on a QWERTY keyboard alternating hands each stroke, which is a nice memory trick, and fun to do.
