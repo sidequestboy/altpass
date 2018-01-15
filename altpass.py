@@ -12,23 +12,42 @@ def choice(keys):
             return keys[i % len(keys)]
 
 # QWERTY layout:
-left_keys = [["`", "1", "2", "3", "4", "5", "6", ],
-             ["q", "w", "e", "r", "t", ],
-             ["a", "s", "d", "f", "g", ],
-             ["z", "x", "c", "v", ], ]
-left_shift = [["~", "!", "@", "#", "$", "%", "^", ],
-              ["Q", "W", "E", "R", "T", ],
-              ["A", "S", "D", "F", "G", ],
-              ["Z", "X", "C", "V", ], ]
+left_keys_q = [["`", "1", "2", "3", "4", "5", "6", ],
+               ["q", "w", "e", "r", "t", ],
+               ["a", "s", "d", "f", "g", ],
+               ["z", "x", "c", "v", ], ]
+left_shift_q = [["~", "!", "@", "#", "$", "%", "^", ],
+                ["Q", "W", "E", "R", "T", ],
+                ["A", "S", "D", "F", "G", ],
+                ["Z", "X", "C", "V", ], ]
 
-right_keys = [["7", "8", "9", "0", "-", "="],
-              ["y", "u", "i", "o", "p", "[", "]", "\\", ],
-              ["h", "j", "k", "l", ";", "'", ],
-              ["b", "n", "m", ",", ".", "/", ], ]
-right_shift = [["&", "*", "(", ")", "_", "+", ],
-               ["Y", "U", "I", "O", "P", "{", "}", "|", ],
-               ["H", "J", "K", "L", ":", "\"", ],
-               ["B", "N", "M", "<", ">", "?", ], ]
+right_keys_q = [["7", "8", "9", "0", "-", "="],
+                ["y", "u", "i", "o", "p", "[", "]", "\\", ],
+                ["h", "j", "k", "l", ";", "'", ],
+                ["b", "n", "m", ",", ".", "/", ], ]
+right_shift_q = [["&", "*", "(", ")", "_", "+", ],
+                 ["Y", "U", "I", "O", "P", "{", "}", "|", ],
+                 ["H", "J", "K", "L", ":", "\"", ],
+                 ["B", "N", "M", "<", ">", "?", ], ]
+
+# Dvorak layout:
+left_keys_d = [["`", "1", "2", "3", "4", "5", "6", ],
+               ["'", ",", ".", "p", "y", ],
+               ["a", "o", "e", "u", "i", ],
+               [";", "q", "j", "k", ], ]
+left_shift_d = [["~", "!", "@", "#", "$", "%", "^", ],
+                ["\"", "<", ">", "P", "Y", ],
+                ["A", "O", "E", "U", "I", ],
+                [":", "Q", "J", "K", ], ]
+
+right_keys_d = [["7", "8", "9", "0", "[", "]"],
+                ["f", "g", "c", "r", "l", "/", "=", "\\", ],
+                ["d", "h", "t", "n", "s", "-", ],
+                ["x", "b", "m", "w", "v", "z", ], ]
+right_shift_d = [["&", "*", "(", ")", "{", "}", ],
+                 ["F", "G", "C", "R", "L", "?", "+", "|", ],
+                 ["D", "H", "T", "N", "S", "_", ],
+                 ["X", "B", "M", "W", "V", "Z", ], ]
 
 
 def generate_password(length):
@@ -51,21 +70,21 @@ def generate_password(length):
         if hand == "left":
             # Choose whether shift key
             if shift:
-                password += choice([k for l in right_shift for k in l])
+                password += choice([k for l in right_shift_d for k in l])
                 shift = False
                 hand = "left"
             else:
-                password += choice([k for l in left_keys for k in l])
+                password += choice([k for l in left_keys_d for k in l])
                 shift = choice([True, False])
                 hand = "right"
         elif hand == "right":
             # Choose whether shift key
             if shift:
-                password += choice([k for l in left_shift for k in l])
+                password += choice([k for l in left_shift_d for k in l])
                 shift = False
                 hand = "right"
             else:
-                password += choice([k for l in right_keys for k in l])
+                password += choice([k for l in right_keys_d for k in l])
                 shift = choice([True, False])
                 hand = "left"
 
